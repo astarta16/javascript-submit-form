@@ -6,6 +6,8 @@ const datePicker = document.querySelector("#date");
 const selectGender = document.querySelector("#gender");
 const textArea = document.querySelector("#note");
 
+const list = document.querySelector("#list");
+
 datePicker.max = new Date().toISOString().split("T")[0];
 
 let trySubmit = false;
@@ -14,7 +16,36 @@ let lastNameIsValid = true;
 let addressIsValid = true;
 let textAreaIsValid = true;
 
-const users = [];
+let users;
+const storageUsers = localStorage.getItem("users");
+if (storageUsers) {
+  users = JSON.parse(storageUsers);
+} else {
+  users = [];
+}
+
+const displayUser = (object) => {
+  const { firstName, lastName, address, dateOfBirth, gender, id } =
+    object;
+  const html = `<div class="col-md-12 d-flex" id="user-${id}">
+    <div class="col-md- border border-secondary text-center" style="width:100px;">${id}</div>
+    <div class="col-md- border border-secondary text-center" style="width:100px;">${firstName}</div>
+    <div class="col-md- border border-secondary text-center" style="width:100px;">${lastName}</div>
+    <div class="col-md- border border-secondary text-center" style="width:100px;">${address}</div>
+    <div class="col-md- border border-secondary text-center" style="width:100px;">${dateOfBirth}</div>
+    <div class="col-md- border border-secondary text-center" style="width:100px;">${gender}</div>
+    <div class="col-md- bg-dark text-white border border-muted  text-center" style="width:100px;">
+    <i class="fa fa-trash" aria-hidden="true" style="color: red"></i>
+    </div>
+    </div> `;
+  list.innerHTML += html;
+};
+users.map((user) => displayUser(user));
+
+
+const saveData = () => {
+  localStorage.setItem("users", JSON.stringify(users));
+};
 
 const firstNameValidation = () => {
   if (trySubmit) {
@@ -127,14 +158,14 @@ function addUser(event) {
     textAreaIsValid
   ) {
     users.push(user);
+    displayUser(user);
+    saveData();
     form.reset();
     firstName.style.borderColor = "#dbdfe4";
     lastName.style.borderColor = "#dbdfe4";
     address.style.borderColor = "#dbdfe4";
     textArea.style.borderColor = "#dbdfe4";
-
   }
 
   console.log(users);
-  
 }
