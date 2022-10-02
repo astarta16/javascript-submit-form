@@ -8,6 +8,9 @@ const textArea = document.querySelector("#note");
 
 const list = document.querySelector("#list");
 
+const modalTitle = document.querySelector('#exampleModalLabel');
+const modalBody = document.querySelector('#modal');
+
 datePicker.max = new Date().toISOString().split("T")[0];
 
 let trySubmit = false;
@@ -24,24 +27,37 @@ if (storageUsers) {
   users = [];
 }
 
+
+const openModal = (firstName,lastName,textArea) =>{
+  console.log(firstName);
+  modalTitle.textContent = firstName + ' ' + lastName
+  
+}
+
 const displayUser = (object) => {
-  const { firstName, lastName, address, dateOfBirth, gender, id } =
-    object;
+  const { firstName, lastName, address, dateOfBirth, gender, id,textArea } = object;
   const html = `<div class="col-md-12 d-flex" id="user-${id}">
-    <div class="col-md- border border-secondary text-center" style="width:100px;">${id}</div>
-    <div class="col-md- border border-secondary text-center" style="width:100px;">${firstName}</div>
-    <div class="col-md- border border-secondary text-center" style="width:100px;">${lastName}</div>
-    <div class="col-md- border border-secondary text-center" style="width:100px;">${address}</div>
-    <div class="col-md- border border-secondary text-center" style="width:100px;">${dateOfBirth}</div>
-    <div class="col-md- border border-secondary text-center" style="width:100px;">${gender}</div>
-    <div class="col-md- bg-dark text-white border border-muted  text-center" style="width:100px;">
+    <div class="col-md- border border-secondary text-center"  data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:100px;">${id}</div>
+    <div class="col-md- border border-secondary text-center" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:100px;">${firstName}</div>
+    <div class="col-md- border border-secondary text-center" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:100px;">${lastName}</div>
+    <div class="col-md- border border-secondary text-center"  data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:100px;">${address}</div>
+    <div class="col-md- border border-secondary text-center" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:100px;">${dateOfBirth}</div>
+    <div class="col-md- border border-secondary text-center" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:100px;">${gender}</div>
+    <div class="col-md- bg-dark text-white border border-muted  text-center"  data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:100px;">
     <i class="fa fa-trash" aria-hidden="true" style="color: red"></i>
     </div>
     </div> `;
   list.innerHTML += html;
 };
-users.map((user) => displayUser(user));
-
+users.map((user) => {
+    displayUser(user)
+    const row = document.querySelector('#user-'+user.id);
+    console.log(row);
+   row.addEventListener("click", () => {
+    
+    openModal(user.firstName,user.lastName,user.textArea);
+   })
+});
 
 const saveData = () => {
   localStorage.setItem("users", JSON.stringify(users));
