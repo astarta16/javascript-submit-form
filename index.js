@@ -53,18 +53,18 @@ exampleModal.addEventListener("show.bs.modal", (event) => {
 const displayUser = (object) => {
   const { firstName, lastName, address, dateOfBirth, gender, id, textArea } =
     object;
-  const html = `<div class="col-md-12 d-flex" id="user-${id}" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-user="${
+  const html = `<div class="d-flex col-12" id="user-${id}" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-user="${
     firstName + " " + lastName
   }" data-bs-note="${textArea}">
-    <div class="col-md- border border-secondary text-center"  style="width:80px;">${id}</div>
-    <div class="col-md- border border-secondary text-center" style="width:80px;">${firstName}</div>
-    <div class="col-md- border border-secondary text-center" style="width:80px;">${lastName}</div>
-    <div class="col-md- border border-secondary text-center"  style="width:80px;">${address}</div>
-    <div class="col-md- border border-secondary text-center" style="width:80px;">${dateOfBirth}</div>
-    <div class="col-md- border border-secondary text-center" style="width:80px;">${gender}</div>
-    <div class="col-md- bg-dark text-white border border-muted  text-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-user="${
+    <div class="col-1 border border-secondary text-center" >${id}</div>
+    <div class="col-2 border border-secondary text-center">${firstName}</div>
+    <div class="col-2 border border-secondary text-center">${lastName}</div>
+    <div class="col-2 border border-secondary text-center" >${address}</div>
+    <div class="col-2 border border-secondary text-center">${dateOfBirth}</div>
+    <div class="col-2 border border-secondary text-center">${gender}</div>
+    <div class="col-1 bg-dark text-white border border-muted  text-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-user="${
       firstName + " " + lastName
-    }" data-bs-id="${id}" style="width:80px;">
+    }" data-bs-id="${id}">
     <i class="fa fa-trash" aria-hidden="true" style="color: red"></i>
     </div>
     </div> `;
