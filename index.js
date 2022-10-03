@@ -8,9 +8,6 @@ const textArea = document.querySelector("#note");
 
 const list = document.querySelector("#list");
 
-const modalTitle = document.querySelector('#exampleModalLabel');
-const modalBody = document.querySelector('#modal');
-
 datePicker.max = new Date().toISOString().split("T")[0];
 
 let trySubmit = false;
@@ -26,38 +23,54 @@ if (storageUsers) {
 } else {
   users = [];
 }
+const exampleModal = document.getElementById("exampleModal");
+exampleModal.addEventListener("show.bs.modal", (event) => {
+  const button = event.relatedTarget;
 
-
-const openModal = (firstName,lastName,textArea) =>{
-  console.log(firstName);
-  modalTitle.textContent = firstName + ' ' + lastName
-  
-}
+  const recipient = button.getAttribute("data-bs-user");
+  const note = button.getAttribute("data-bs-note");
+  const id = button.getAttribute("data-bs-id");
+  const modalTitle = exampleModal.querySelector(".modal-title");
+  const modalBody = exampleModal.querySelector(".modal-body");
+  if (id) {
+    modalTitle.textContent = "Delete user " + recipient;
+    const deleteUser = document.querySelector("#delete");
+    deleteUser.classList.remove("d-none");
+    deleteUser.onclick = () => {
+      const userIndex = users.findIndex((user) => user.id === id);
+      users.splice(userIndex, 1);
+      const deleteDiv = document.querySelector(`#user-${id}`);
+      deleteDiv.remove();
+      saveData();
+    };
+  } else {
+    modalTitle.textContent = recipient;
+    modalBody.textContent =
+      note.trim().length === 0 ? "Note not found!" : note.trim();
+  }
+});
 
 const displayUser = (object) => {
-  const { firstName, lastName, address, dateOfBirth, gender, id,textArea } = object;
-  const html = `<div class="col-md-12 d-flex" id="user-${id}">
-    <div class="col-md- border border-secondary text-center"  data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:100px;">${id}</div>
-    <div class="col-md- border border-secondary text-center" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:100px;">${firstName}</div>
-    <div class="col-md- border border-secondary text-center" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:100px;">${lastName}</div>
-    <div class="col-md- border border-secondary text-center"  data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:100px;">${address}</div>
-    <div class="col-md- border border-secondary text-center" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:100px;">${dateOfBirth}</div>
-    <div class="col-md- border border-secondary text-center" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:100px;">${gender}</div>
-    <div class="col-md- bg-dark text-white border border-muted  text-center"  data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:100px;">
+  const { firstName, lastName, address, dateOfBirth, gender, id, textArea } =
+    object;
+  const html = `<div class="col-md-12 d-flex" id="user-${id}" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-user="${
+    firstName + " " + lastName
+  }" data-bs-note="${textArea}">
+    <div class="col-md- border border-secondary text-center"  style="width:80px;">${id}</div>
+    <div class="col-md- border border-secondary text-center" style="width:80px;">${firstName}</div>
+    <div class="col-md- border border-secondary text-center" style="width:80px;">${lastName}</div>
+    <div class="col-md- border border-secondary text-center"  style="width:80px;">${address}</div>
+    <div class="col-md- border border-secondary text-center" style="width:80px;">${dateOfBirth}</div>
+    <div class="col-md- border border-secondary text-center" style="width:80px;">${gender}</div>
+    <div class="col-md- bg-dark text-white border border-muted  text-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-user="${
+      firstName + " " + lastName
+    }" data-bs-id="${id}" style="width:80px;">
     <i class="fa fa-trash" aria-hidden="true" style="color: red"></i>
     </div>
     </div> `;
   list.innerHTML += html;
 };
-users.map((user) => {
-    displayUser(user)
-    const row = document.querySelector('#user-'+user.id);
-    console.log(row);
-   row.addEventListener("click", () => {
-    
-    openModal(user.firstName,user.lastName,user.textArea);
-   })
-});
+users.map((user) => displayUser(user));
 
 const saveData = () => {
   localStorage.setItem("users", JSON.stringify(users));
@@ -182,6 +195,4 @@ function addUser(event) {
     address.style.borderColor = "#dbdfe4";
     textArea.style.borderColor = "#dbdfe4";
   }
-
-  console.log(users);
 }

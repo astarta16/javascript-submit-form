@@ -12,6 +12,7 @@
 </head>
 
 <body>
+  
   <div>
     <h1 class="w-100 p-3" style="background-color:#F8E5E5" >Students registration app</h1>
   </div>
@@ -44,7 +45,7 @@
       </div>
 
         <div class="">
-          <label for="inputAddress" class="form-label mt-3 ">Address <span class="text-danger">*</span></label>
+          <label for="inputAddress" class="form-label mt-5 ">Address <span class="text-danger">*</span></label>
           <input type="text" class="form-control" id="inputAddress">
           <div id="address-error" class="text-danger h6" style="height:20px;"></div>
         </div>
@@ -76,23 +77,24 @@
       </div>
     </form>
     <div class="d-flex justify-content-center mb-4">
+      
     <div class="col-md-6 mt-4 mb-6" id="list">
     <div class=" d-flex" >
-      <div class="col-md- bg-dark text-white border border-muted  text-center " style="width:100px;">ID</div>
-      <div class="col-md- bg-dark text-white border border-muted  text-center" style="width:100px;">First Name</div>
-      <div class="col-md-  bg-dark text-white border border-muted  text-center" style="width:100px;">Last Name</div>
-      <div class="col-md- bg-dark text-white border border-muted  text-center" style="width:100px;">Address</div>
-      <div class="col-md- bg-dark text-white border border-muted  text-center" style="width:100px;">Date</div>
-      <div class="col-md- bg-dark text-white border border-muted  text-center" style="width:100px;">Gender</div>
-      <div class="col-md- bg-dark text-white border border-muted  text-center" style="width:100px;">delete</div>
-        
-   
+      
+      <div class="col-md- bg-dark text-white border border-muted  text-center " style="width:80px;">ID</div>
+      <div class="col-md- bg-dark text-white border border-muted  text-center" style="width:80px;">First Name</div>
+      <div class="col-md-  bg-dark text-white border border-muted  text-center" style="width:80px;">Last Name</div>
+      <div class="col-md- bg-dark text-white border border-muted  text-center" style="width:80px;">Address</div>
+      <div class="col-md- bg-dark text-white border border-muted  text-center" style="width:80px;">Date</div>
+      <div class="col-md- bg-dark text-white border border-muted  text-center" style="width:80px;">Gender</div>
+      <div class="col-md- bg-dark text-white border border-muted  text-center" style="width:80px;">delete</div>
+      
       </div>
-  
     </div>
-    </div>   
   </div>
     </div>
+    
+    
   
 
 <!-- Modal -->
@@ -101,6 +103,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel"></h5>
+
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" id="modal">
@@ -108,6 +111,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger d-none"  data-bs-dismiss="modal" id="delete">Delete user</button>
       </div>
     </div>
   </div>
